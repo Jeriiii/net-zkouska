@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Xml.Linq;
 
 namespace netZkouska.Models
 {
@@ -29,6 +30,23 @@ namespace netZkouska.Models
 
 		[NotMapped]
 		public int Grade { get {
+
+			XDocument configXML = XDocument.Load("D:\\Documents\\Projekty\\config.xml");
+
+			var configQuery = from c in configXML.Descendants("configs").Descendants("grades")
+							 select c;// getting ship node in ships XML
+
+			int onePoints = 0;
+			int twoPoints = 0;
+			int threePoints = 0;
+
+			foreach(XElement g in configQuery) {
+				onePoints = (int) g.Descendants("one").FirstOrDefault();
+				twoPoints = (int)g.Descendants("two").FirstOrDefault();
+				threePoints = (int)g.Descendants("three").FirstOrDefault();
+			}
+
+
 			int bestPoints = 0;
 			foreach(Exam e in Exams) {
 				if (e.Points > bestPoints)
@@ -37,15 +55,15 @@ namespace netZkouska.Models
 				}
 			}
 
-			if (bestPoints >= 950)
+			if (bestPoints >= onePoints)
 			{
 				return 1;
 			}
-			if (bestPoints >= 850)
+			if (bestPoints >= twoPoints)
 			{
 				return 2;
 			}
-			if (bestPoints >= 250)
+			if (bestPoints >= threePoints)
 			{
 				return 3;
 			}
