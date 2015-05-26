@@ -7,12 +7,12 @@ namespace netZkouska.Models
 {
 	public class Student
 	{
-		public int StudentID;
-		public string name;
-		public string surname;
+		public int StudentID { get; set; }
+		public string name { get; set; }
+		public string surname { get; set; }
 
-		public ICollection<Exam> Exams;
-		public ICollection<StudentWork> StudentWorks;
+		public virtual ICollection<Exam> Exams { get; set; }
+		public virtual ICollection<StudentWork> StudentWorks {get; set;}
 	
 	}
 }

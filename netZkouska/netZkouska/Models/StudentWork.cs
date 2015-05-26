@@ -7,9 +7,9 @@ namespace netZkouska.Models
 {
 	public class StudentWork
 	{
-		public int StudentWorkID;
-		public int Points;
-		public string Commnent;
-		public DateTime WorkDate;
+		public int StudentWorkID { get; set; }
+		public int Points { get; set; }
+		public string Commnent { get; set; }
+		public DateTime WorkDate { get; set; }
 	}
 }
