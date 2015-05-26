@@ -10,18 +10,18 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
-    <tr>
+	<tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+			@Html.ActionLink("Jmeno", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Surname)
+            @Html.ActionLink("Prijmeni", "Index", new { sortOrder = ViewBag.SurNameSortParm })
         </th>
 		<th>
-			@Html.DisplayNameFor(model => model.hasCourseCredit)
+			@Html.ActionLink("Ma zapocet", "Index", new { sortOrder = ViewBag.HasCourseSortParm })
 		</th>
 		<th>
-			@Html.DisplayNameFor(model => model.Grade)
+			@Html.ActionLink("Znamka", "Index", new { sortOrder = ViewBag.GradeParm })
 		</th>
 		
         <th></th>

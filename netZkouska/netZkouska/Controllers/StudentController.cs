@@ -18,18 +18,84 @@ namespace netZkouska.Controllers
 		private StudentNet db = new StudentNet();
 
 		// GET: Student
-		public ActionResult Index()
+		public ActionResult Index(string sortOrder)
 		{
+			ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+			ViewBag.SurNameSortParm = sortOrder == "surName" ? "surName_desc" : "surName";
+			ViewBag.HasCourseSortParm = sortOrder == "hasCourse" ? "hasCourse_desc" : "hasCourse";
+			ViewBag.GradeParm = sortOrder == "grade" ? "grade_desc" : "grade";
+
+			var students = from s in db.Students
+						   select s;
+
+			List<Student> std;
+			switch (sortOrder)
+			{
+				case "name_desc":
+					students = students.OrderByDescending(s => s.Name);
+					break;
+				case "surName":
+					students = students.OrderBy(s => s.Surname);
+					break;
+				case "surName_desc":
+					students = students.OrderByDescending(s => s.Surname);
+					break;
+				case "hasCourse":
+					std = students.ToList();
+					std.Sort(
+						delegate(Student s1, Student s2)
+						{
+							return s1.hasCourseCredit.Equals(s2.hasCourseCredit) ? 1 : 0;
+						}
+					);
+					return View(std);
+					break;
+				case "hasCourse_desc":
+					std = students.ToList();
+					std.Sort(
+						delegate(Student s1, Student s2)
+						{
+							return s1.hasCourseCredit.Equals(s2.hasCourseCredit) ? 0 : 1;
+						}
+					);
+					return View(std);
+					break;
+				case "grade":
+					std = students.ToList();
+					std.Sort(
+						delegate(Student s1, Student s2)
+						{
+							return s1.Grade > s2.Grade ? 1 : -1;
+						}
+					);
+					return View(std);
+					break;
+				case "grade_desc":
+					std = students.ToList();
+					std.Sort(
+						delegate(Student s1, Student s2)
+						{
+							return s1.Grade > s2.Grade ? -1 : 1;
+						}
+					);
+					return View(std);
+					break;
+				default:
+					students = students.OrderBy(s => s.Name);
+					break;
+			}
+
+
 			//TextWriter tw = Response.Output;
 			//Response.Output = new StreamWriter("D:\\Documents\\Projekty\\output.html");
 
-			string myString = RenderRazorViewToString("~/Views/Student/Index.cshtml", View(db.Students.ToList()).Model);
+			//string myString = RenderRazorViewToString("~/Views/Student/Index.cshtml", View(db.Students.ToList()).Model);
 
-			System.IO.File.WriteAllText("D:\\Documents\\Projekty\\output.html", myString);
+			//System.IO.File.WriteAllText("D:\\Documents\\Projekty\\output.html", myString);
 
 			//Response.Output = tw;
 
-			return View(db.Students.ToList());
+			return View(students.ToList());
 		}
 
 		public string RenderRazorViewToString(string viewName, object model)
