@@ -18,16 +18,23 @@ namespace netZkouska.Controllers
 		private StudentNet db = new StudentNet();
 
 		// GET: Student
-		public ActionResult Index(string sortOrder)
+		public ActionResult Index(string sortOrder, string searchStringName)
 		{
+			var students = from s in db.Students
+						   select s;
+
+			if (!String.IsNullOrEmpty(searchStringName))
+			{
+				students = students.Where(s => s.Name.Contains(searchStringName));
+			}
+
+
 			ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 			ViewBag.SurNameSortParm = sortOrder == "surName" ? "surName_desc" : "surName";
 			ViewBag.HasCourseSortParm = sortOrder == "hasCourse" ? "hasCourse_desc" : "hasCourse";
 			ViewBag.GradeParm = sortOrder == "grade" ? "grade_desc" : "grade";
 
-			var students = from s in db.Students
-						   select s;
-
+			
 			List<Student> std;
 			switch (sortOrder)
 			{
