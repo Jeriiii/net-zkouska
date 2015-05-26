@@ -47,7 +47,7 @@ namespace netZkouska.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentID,name,surname")] Student student)
+        public ActionResult Create([Bind(Include = "StudentID,Name,Surname")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -79,7 +79,7 @@ namespace netZkouska.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentID,name,surname")] Student student)
+        public ActionResult Edit([Bind(Include = "StudentID,Name,Surname")] Student student)
         {
             if (ModelState.IsValid)
             {
