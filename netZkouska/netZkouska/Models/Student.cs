@@ -27,6 +27,31 @@ namespace netZkouska.Models
 		}
 		}
 
+		[NotMapped]
+		public int Grade { get {
+			int bestPoints = 0;
+			foreach(Exam e in Exams) {
+				if (e.Points > bestPoints)
+				{
+					bestPoints = e.Points;
+				}
+			}
+
+			if (bestPoints >= 950)
+			{
+				return 1;
+			}
+			if (bestPoints >= 850)
+			{
+				return 2;
+			}
+			if (bestPoints >= 250)
+			{
+				return 3;
+			}
+			return 4;
+		} }
+
 		public virtual ICollection<Exam> Exams { get; set; }
 		public virtual ICollection<StudentWork> StudentWorks {get; set;}
 	

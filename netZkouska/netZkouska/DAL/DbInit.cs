@@ -15,7 +15,13 @@ namespace netZkouska.DAL
 			{
 				var studentWorks = new List<StudentWork>
 				{
-				new StudentWork{Points=1050,Commnent="Chemistry",WorkDate=DateTime.Parse("2015-01-01")},
+				new StudentWork{Points=1050,WorkDate=DateTime.Parse("2015-01-01")},
+
+				};
+
+				var exams = new List<Exam>
+				{
+				new Exam{Points=900,ExamDate=DateTime.Parse("2015-01-01")},
 
 				};
 
@@ -25,7 +31,7 @@ namespace netZkouska.DAL
 
 				var students = new List<Student>
 				{
-				new Student{Name="Carson",Surname="Alexander", StudentWorks=studentWorks},
+				new Student{Name="Carson",Surname="Alexander", StudentWorks=studentWorks, Exams=exams},
 				new Student{Name="Neal",Surname="Jackson"},
 				new Student{Name="Pepa",Surname="Omáčka"},
 				new Student{Name="Honza",Surname="Skočdopole"}
