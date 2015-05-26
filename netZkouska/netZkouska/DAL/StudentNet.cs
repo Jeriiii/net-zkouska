@@ -13,9 +13,9 @@ namespace netZkouska.DAL
 		{
 		}
 
-		public virtual DbSet<Exam> Exams { get; set; }
-		public virtual DbSet<Student> Students { get; set; }
-		public virtual DbSet<StudentWork> StudentWorks { get; set; }
+		public DbSet<Exam> Exams { get; set; }
+		public DbSet<Student> Students { get; set; }
+		public DbSet<StudentWork> StudentWorks { get; set; }
 
 		protected override void OnModelCreating(DbModelBuilder modelBuilder)
 		{
